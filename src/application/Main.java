@@ -5,9 +5,14 @@
  */
 package application;
 
+import Chess.ChessException;
 import Chess.ChessMatch;
+import Chess.ChessPiece;
+import Chess.ChessPosition;
 import bordgame.Position;
 import bordgame.Board;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  *
@@ -17,9 +22,30 @@ public class Main {
     
     public static void main(String[] args) {
         
-        
+        Scanner ler = new Scanner(System.in);
         ChessMatch chessMatch = new ChessMatch();
-        UI.printBoard(chessMatch.getPieces());
+        
+        while(true){
+           try{ 
+                UI.clearScreen();
+                UI.printBoard(chessMatch.getPieces());
+                System.out.println();
+                System.out.print("Source: ");
+                ChessPosition source = UI.readChessPosition(ler);
+
+                System.out.println();
+                System.out.print("Target: ");
+                ChessPosition target = UI.readChessPosition(ler);
+
+                ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+            }catch(ChessException e){
+                System.out.println(e.getMessage());
+                ler.nextLine();
+            }catch(InputMismatchException e){
+                System.out.println(e.getMessage());
+                ler.nextLine();
+            }
+        }
         
     }
 }
