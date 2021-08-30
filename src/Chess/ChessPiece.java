@@ -7,6 +7,7 @@ package Chess;
 
 import bordgame.Board;
 import bordgame.Piece;
+import bordgame.Position;
 
 /**
  *
@@ -25,4 +26,8 @@ public abstract class ChessPiece extends Piece{
         return color;
     }
     
+     protected boolean isThereOppnentPiece(Position position){
+         ChessPiece p = (ChessPiece) getBoard().piece(position);
+         return p != null && p.getColor() != color;
+     }
 }
